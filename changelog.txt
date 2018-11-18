@@ -5,10 +5,24 @@ https://github.com/hMailServer-ComDevs/hmailserver
 
 
 Changes (newest first)
+Date: 11/19/2018
+
+****Developer related****
+
+*Added 64-Bit Libmysql.dll which will be installed regardless which SQL-DB is used
+*Added Correct Windows FileVersioninfo to the Classic InnoSetup Instaler
+*Added A valid InnoSetup Uninstaller icon for the Windows App Uninstall Controlpanel
+*Fixed hMailAdmin buildinfo which didnt show up correctly in the hMailAdmin GUI
+*Added Updated Visual Studio 2013 Service Pack 5 Redistributable DLL's (Version 12.0.40660.0)
+*Added Windows Installer XML (WIX) MSI-Installer Scripts for the LibreSSL based Installer
+*Repalced the old hMailServer-5.6.8-B2426-x64.exe with the fixe one (11/19/2018)
+
+****User related****
+*You dont need manually copy Libmysql.dll into hMailServer's \Bin folder anymore
+
+#####
+
 Date: 11/18/2018
-
-**Developer only related**
-
 hMailServer.vcxproj - Buildconfig Win32 (i386) and x64 (AMD64)(Debug/Release)
 
 1)

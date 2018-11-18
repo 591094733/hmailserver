@@ -1,8 +1,0 @@
-
-Visual Studio 2013 RTM = 12.0.21005.1 
-msvcp120.dll, msvcr120.dll, vccorlib120.dll
-
-Visual Studio 2013 Update 5 = 12.0.40660.0
-msvcp120.dll, msvcr120.dll, vccorlib120.dll
-
-
