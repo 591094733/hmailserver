@@ -114,7 +114,7 @@ EXIT 0
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(hMailServerLibs)\boost_1_63_0;..\..\..\..\Libraries\mssqlce3.5;$(hMailServerLibs)\openssl-1.0.2o\inc32;..\..\..\..\libraries\libpq-9.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(hMailServerLibs)\boost_1_63_0;..\..\..\..\Libraries\mssqlce3.5;$(hMailServerLibs)\openssl-1.0.2p\inc32;..\..\..\..\libraries\libpq-9.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;UNICODE;_UNICODE;BOOST_DATE_TIME_NO_LIB;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
@@ -136,7 +136,7 @@ EXIT 0
       <AdditionalDependencies>Adsiid.lib;activeds.lib;IPHlpAPI.lib;Dnsapi.lib;Ws2_32.lib;libpq.lib;libeay32.lib;ssleay32.lib;crypt32.lib;Secur32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>NotSet</ShowProgress>
       <OutputFile>$(OutDir)hMailServer.exe</OutputFile>
-      <AdditionalLibraryDirectories>$(hMailServerLibs)\boost_1_63_0\stage\lib32;$(hMailServerLibs)\openssl-1.0.2o\out32;..\..\..\..\Libraries\libpq-9.4\32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(hMailServerLibs)\boost_1_63_0\stage\lib32;$(hMailServerLibs)\openssl-1.0.2p\out32;..\..\..\..\Libraries\libpq-9.4\32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
@@ -147,8 +147,8 @@ EXIT 0
     </Link>
     <PostBuildEvent>
       <Message>Performing registration</Message>
-      <Command>xcopy /F /Y $(hMailServerLibs)\openssl-1.0.2o\out32\libeay32.dll $(OutDir)
-xcopy /F /Y $(hMailServerLibs)\openssl-1.0.2o\out32\ssleay32.dll $(OutDir)
+      <Command>xcopy /F /Y $(hMailServerLibs)\openssl-1.0.2p\out32\libeay32.dll $(OutDir)
+xcopy /F /Y $(hMailServerLibs)\openssl-1.0.2p\out32\ssleay32.dll $(OutDir)
 "$(TargetPath)" /Register
 </Command>
     </PostBuildEvent>
@@ -172,7 +172,7 @@ EXIT 0
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(hMailServerLibs)\boost_1_63_0;..\..\..\..\Libraries\mssqlce3.5;$(hMailServerLibs)\openssl-1.0.2o\inc32;..\..\..\..\Libraries\libpq-9.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(hMailServerLibs)\boost_1_63_0;..\..\..\..\Libraries\mssqlce3.5;$(hMailServerLibs)\openssl-1.0.2p\inc32;..\..\..\..\Libraries\libpq-9.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;UNICODE;_UNICODE;BOOST_DATE_TIME_NO_LIB;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
@@ -194,7 +194,7 @@ EXIT 0
       <AdditionalDependencies>Adsiid.lib;activeds.lib;IPHlpAPI.lib;Dnsapi.lib;Ws2_32.lib;libpq.lib;libeay32.lib;ssleay32.lib;crypt32.lib;Secur32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>NotSet</ShowProgress>
       <OutputFile>$(OutDir)hMailServer.exe</OutputFile>
-      <AdditionalLibraryDirectories>$(hMailServerLibs)\boost_1_63_0\stage\lib64;$(hMailServerLibs)\openssl-1.0.2o\out64;..\..\..\..\Libraries\libpq-9.4\64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(hMailServerLibs)\boost_1_63_0\stage\lib64;$(hMailServerLibs)\openssl-1.0.2p\out64;..\..\..\..\Libraries\libpq-9.4\64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
@@ -204,8 +204,8 @@ EXIT 0
     </Link>
     <PostBuildEvent>
       <Message>Performing registration</Message>
-      <Command>xcopy /F /Y $(hMailServerLibs)\openssl-1.0.2o\out64\libeay32.dll $(OutDir)
-xcopy /F /Y $(hMailServerLibs)\openssl-1.0.2o\out64\ssleay32.dll $(OutDir)
+      <Command>xcopy "$(hMailServerLibs)\openssl-1.0.2p\out64\libeay32.dll" "$(OutDir)"
+xcopy "$(hMailServerLibs)\openssl-1.0.2p\out64\ssleay32.dll" "$(OutDir)"
 "$(TargetPath)" /Register
 </Command>
     </PostBuildEvent>
@@ -230,7 +230,7 @@ EXIT 0
     <ClCompile>
       <AdditionalOptions>/MP /Zm200
  %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(hMailServerLibs)\boost_1_63_0;..\..\..\..\Libraries\mssqlce3.5;$(hMailServerLibs)\openssl-1.0.2o\inc32;..\..\..\..\Libraries\libpq-9.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(hMailServerLibs)\boost_1_63_0;..\..\..\..\Libraries\mssqlce3.5;$(hMailServerLibs)\openssl-1.0.2p\inc32;..\..\..\..\Libraries\libpq-9.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;UNICODE;_UNICODE;NDEBUG;BOOST_DATE_TIME_NO_LIB;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -248,7 +248,7 @@ EXIT 0
       <AdditionalOptions>/SAFESEH /ignore:4099 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>libeay32.lib;ssleay32.lib;Adsiid.lib;activeds.lib;IPHlpAPI.lib;Dnsapi.lib;Ws2_32.lib;libpq.lib;crypt32.lib;Secur32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)hMailServer.exe</OutputFile>
-      <AdditionalLibraryDirectories>$(hMailServerLibs)\boost_1_63_0\stage\lib32;$(hMailServerLibs)\openssl-1.0.2o\out32;..\..\..\..\Libraries\libpq-9.4\32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(hMailServerLibs)\boost_1_63_0\stage\lib32;$(hMailServerLibs)\openssl-1.0.2p\out32;..\..\..\..\Libraries\libpq-9.4\32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -258,8 +258,8 @@ EXIT 0
     </Link>
     <PostBuildEvent>
       <Message>Performing registration</Message>
-      <Command>xcopy /F /Y $(hMailServerLibs)\openssl-1.0.2o\out32\libeay32.dll $(OutDir)
-xcopy /F /Y $(hMailServerLibs)\openssl-1.0.2o\out32\ssleay32.dll $(OutDir)
+      <Command>xcopy /F /Y $(hMailServerLibs)\openssl-1.0.2p\out32\libeay32.dll $(OutDir)
+xcopy /F /Y $(hMailServerLibs)\openssl-1.0.2p\out32\ssleay32.dll $(OutDir)
 "$(TargetPath)" /Register
 </Command>
     </PostBuildEvent>
@@ -282,7 +282,7 @@ EXIT 0
       <ProxyFileName>hMailServer_p.c</ProxyFileName>
     </Midl>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(hMailServerLibs)\boost_1_63_0;..\..\..\..\Libraries\mssqlce3.5;$(hMailServerLibs)\openssl-1.0.2o\inc32;..\..\..\..\Libraries\libpq-9.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(hMailServerLibs)\boost_1_63_0;..\..\..\..\Libraries\mssqlce3.5;$(hMailServerLibs)\openssl-1.0.2p\inc32;..\..\..\..\Libraries\libpq-9.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;UNICODE;_UNICODE;NDEBUG;BOOST_DATE_TIME_NO_LIB;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -291,6 +291,16 @@ EXIT 0
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalOptions>/Zm200 %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <OmitFramePointers>true</OmitFramePointers>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <StringPooling>true</StringPooling>
+      <MinimalRebuild>true</MinimalRebuild>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -301,7 +311,7 @@ EXIT 0
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>libeay32.lib;ssleay32.lib;Adsiid.lib;activeds.lib;IPHlpAPI.lib;Dnsapi.lib;Ws2_32.lib;libpq.lib;crypt32.lib;Secur32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)hMailServer.exe</OutputFile>
-      <AdditionalLibraryDirectories>$(hMailServerLibs)\boost_1_63_0\stage\lib64;$(hMailServerLibs)\openssl-1.0.2o\out64;..\..\..\..\Libraries\libpq-9.4\64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(hMailServerLibs)\boost_1_63_0\stage\lib64;$(hMailServerLibs)\openssl-1.0.2p\out64;..\..\..\..\Libraries\libpq-9.4\64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -311,8 +321,8 @@ EXIT 0
     </Link>
     <PostBuildEvent>
       <Message>Performing registration</Message>
-      <Command>xcopy /F /Y $(hMailServerLibs)\openssl-1.0.2o\out64\libeay32.dll $(OutDir)
-xcopy /F /Y $(hMailServerLibs)\openssl-1.0.2o\out64\ssleay32.dll $(OutDir)
+      <Command>xcopy "$(hMailServerLibs)\openssl-1.0.2p\out64\libeay32.dll" "$(OutDir)"
+xcopy "$(hMailServerLibs)\openssl-1.0.2p\out64\ssleay32.dll" "$(OutDir)"
 "$(TargetPath)" /Register
 </Command>
     </PostBuildEvent>
@@ -1464,7 +1474,14 @@ xcopy /F /Y $(hMailServerLibs)\openssl-1.0.2o\out64\ssleay32.dll $(OutDir)
     <None Include="..\COM\InterfaceGlobalObjects.rgs" />
     <None Include="..\COM\InterfaceGreyListingWhiteAddress.rgs" />
     <None Include="..\COM\InterfaceGreyListingWhiteAddresses.rgs" />
+    <None Include="..\COM\InterfaceGroup.rgs" />
+    <None Include="..\COM\InterfaceGroupMember.rgs" />
+    <None Include="..\COM\InterfaceGroupMembers.rgs" />
+    <None Include="..\COM\InterfaceGroups.rgs" />
     <None Include="..\COM\InterfaceIMAPFolder.rgs" />
+    <None Include="..\COM\InterfaceIMAPFolderACL.rgs" />
+    <None Include="..\COM\InterfaceIMAPFolderPermission.rgs" />
+    <None Include="..\COM\InterfaceIMAPFolderPermissions.rgs" />
     <None Include="..\COM\InterfaceIMAPFolders.rgs" />
     <None Include="..\COM\InterfaceIncomingRelay.rgs" />
     <None Include="..\COM\InterfaceIncomingRelays.rgs" />
@@ -1496,6 +1513,8 @@ xcopy /F /Y $(hMailServerLibs)\openssl-1.0.2o\out64\ssleay32.dll $(OutDir)
     <None Include="..\COM\InterfaceServerMessage.rgs" />
     <None Include="..\COM\InterfaceServerMessages.rgs" />
     <None Include="..\COM\InterfaceSettings.rgs" />
+    <None Include="..\COM\InterfaceSSLCertificate.rgs" />
+    <None Include="..\COM\InterfaceSSLCertificates.rgs" />
     <None Include="..\COM\InterfaceStatus.rgs" />
     <None Include="..\COM\InterfaceSURBLServer.rgs" />
     <None Include="..\COM\InterfaceSURBLServers.rgs" />

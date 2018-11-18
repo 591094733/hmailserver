@@ -1,0 +1,37 @@
+hMailServer-ComDevs 
+
+Repository: 
+https://github.com/hMailServer-ComDevs/hmailserver
+
+
+Changes (newest first)
+Date: 11/18/2018
+
+**Developer only related**
+
+hMailServer.vcxproj - Buildconfig Win32 (i386) and x64 (AMD64)(Debug/Release)
+
+1)
+x64-Custom Buildstep -> Post-Build-Event - Quotation fix (file copy failed)
+xcopy "$(hMailServerLibs)\openssl-1.0.2p\out64\libeay32.dll" "$(OutDir)"
+xcopy "$(hMailServerLibs)\openssl-1.0.2p\out64\ssleay32.dll" "$(OutDir)"
+"$(TargetPath)" /Register
+
+2) 
+OpenSSL 1.0.2o to OpenSSL-1.0.2p path fix
+
+3)
+Created 2.x new Filters for "source" and "headers" and DBScripts which resulted in the 
+new a filter file "hMailServer.v12.suo". Now includes and implementation, header and
+DBScripts files are now seperated for better overview
+
+4)
+Version.h and Resource.rc version info included
+**End Developer only related**
+
+5) 
+C/C++ Compiler optimization switches x64 (Release) 
+* /0x /Ob2 /Oi /Ot /Oy /GT /GL /GF /GM
+
+6)
+*Added this changelog.txt and ca.cert.pem (Talkcircle Root CA for Codesigning)
