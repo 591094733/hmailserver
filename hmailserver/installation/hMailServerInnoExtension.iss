@@ -592,7 +592,7 @@ end;
 function InstallSQLCE() : boolean;
 var
    ResultCode: Integer;
-   szInstallApp: String;
+   // outcommented, because its not needed szInstallApp: String; 
    szParams: String;
 
    szIniFile : String;

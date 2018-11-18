@@ -1,4 +1,4 @@
-// Copyright (c) 2010 Martin Knafve / hMailServer.com.  
+// Copyright (c) 2010 Martin Knafve / hMailServer.com. .
 // http://www.hmailserver.com
 
 #include "StdAfx.h"
@@ -196,7 +196,7 @@ namespace HM
 
       int pos = 0;
 
-      std::array<unsigned char, 16U> bytes = address_.to_v6().to_bytes();
+	  std::array<unsigned char, 16U> bytes =  address_.to_v6().to_bytes();
 
       for (unsigned int source_position = 1; source_position <= bytes.size(); source_position++)
       {

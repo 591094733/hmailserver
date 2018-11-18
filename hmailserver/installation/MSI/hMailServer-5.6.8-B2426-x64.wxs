@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+
+  <!-- Global preprocessor defines  -->
+  <?define Manufactor = "The hMailServer Community"?>
+  <?define UpgradeGuid = "{fb7b0207-6b8d-44da-a7df-4b06546621b4}"?> 
+  
+  <Product  
+	Id="*" 		   	
+	Version="5.6.8.0"
+	Language="1033"
+	Name="!(loc.ApplicationName)"
+    Manufacturer="!(loc.ManufacturerName)"
+	UpgradeCode="$(var.UpgradeGuid)">	
+	
+      <Package   
+        Id='*'   
+        Keywords='Installer'   
+        Platform="x64"  
+        Description="hMailServer 64-Bit"  
+        Comments='Version 5.6.8 with LibreSSL Support'   
+        Manufacturer='The hMailServer Community'  
+        InstallerVersion='200'   
+        Languages='1033'   
+        Compressed='yes'   
+        SummaryCodepage='1252' 
+		/> 
+
+    <Media
+      Id="1"
+      Cabinet="media1.cab"
+      EmbedCab="yes"
+    />
+    
+    <Property Id="ARPHELPLINK" Value="https://www.hMailServer.com" />
+    <Property Id="ARPCONTACT" Value="The hMailServer Community" />
+    <Property Id="ARPCOMMENTS" Value="OpenSource matters" />
+    <Property Id="ARPURLINFOABOUT" Value="https://www.hmailserver.com/forum" />	
+	<Icon Id="hMailServer.ico" SourceFile="InstallFolder\resources\hMailServer.ico"/> 
+	<Property Id="ARPPRODUCTICON" Value="hMailServer.ico" /> 
+	<PropertyRef Id="WIX_IS_NETFRAMEWORK_40_OR_LATER_INSTALLED" />
+	
+	<Condition Message="hMailServer requires .NET Framework 4.0 or higher, please install it first and rerun this Installer">
+		<![CDATA[Installed OR WIX_IS_NETFRAMEWORK_40_OR_LATER_INSTALLED]]>
+	</Condition>
+	
+	
+    <WixVariable Id="WixUIBannerBmp" Value="InstallFolder\resources\setup_header.bmp" />
+    <WixVariable Id="WixUIDialogBmp" Value="InstallFolder\resources\setup_main.bmp" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">      
+      <Directory Id="ProgramFiles64Folder">
+        <Directory Id="CompanyFolder" Name="hMailServer">
+		 
+		<Directory Id="Addons" Name="Addons">
+			<Directory Id="DDS" Name="DataDirectorySynchronizer">
+				<Component Id="AddonFolder" Guid="{faf94b91-050e-4335-97e5-23166efbdc62}" Win64="yes">              
+					<File Id="Interop.hMailServer.2.dll"		Name="Interop.hMailServer,2.dll"		Source="InstallFolder\Addons\DataDirectorySynchronizer\Interop.hMailServer,2.dll" />    
+					<File Id="DataDirectorySynchronizer.exe"	Name="DataDirectorySynchronizer.exe"	Source="InstallFolder\Addons\DataDirectorySynchronizer\DataDirectorySynchronizer.exe" />    
+				</Component>  
+			</Directory>	
+		</Directory>
+
+		<Directory Id="Events" Name="Events">			
+			<Component Id="EventFolder" Guid="{fa55a658-e32e-416c-bd15-58ab74e34812}" Win64="yes">              
+				<File Id="EventHandlers.vbs"		Name="EventHandlers.vbs"		Source="InstallFolder\Events\EventHandlers.vbs" />    					
+			</Component>  			
+		</Directory>		
+		
+		<Directory Id="Languages" Name="Languages">			
+			<Component Id="LanguagesFolder" Guid="{f124c6a4-6f2d-4f11-86fb-3792c6e78fb7}" Win64="yes">              
+				<File Id="english.ini"		Name="english.ini"		Source="InstallFolder\Languages\english.ini" />    					
+				<File Id="swedish.ini"		Name="swedish.ini"		Source="InstallFolder\Languages\swedish.ini" /> 
+			</Component>  			
+		</Directory>	
+		
+		<Directory Id="DBScripts" Name="DBScripts">
+
+			<Directory Id="InternalMySQL" Name="Internal MySQL">
+				<Component Id="DBScriptsFolderInternal" Guid="{7740272c-e20b-4f8d-ab00-892baac62af9}" Win64="yes">              
+					<File Id="HMS4.3MySQL4.1.18.sql"	Name="HMS4.3-MySQL4.1.18.sql"	Source="InstallFolder\DBScripts\Internal MySQL\HMS4.3-MySQL4.1.18.sql" />    					
+				</Component>  
+			</Directory>	
+
+				<Component Id="DBScriptsFolderMain" Guid="{964eea3c-48a3-4dff-a70d-855f3ff116cf}" Win64="yes">              
+					<File Id="CreateTablesMSSQL.sql"		Name="CreateTablesMSSQL.sql"		Source="InstallFolder\DBScripts\CreateTablesMSSQL.sql" />    					
+					<File Id="CreateTablesMYSQL.sql"		Name="CreateTablesMYSQL.sql"		Source="InstallFolder\DBScripts\CreateTablesMYSQL.sql" />    						
+					<File Id="CreateTablesPGSQL.sql"		Name="CreateTablesPGSQL.sql"		Source="InstallFolder\DBScripts\CreateTablesPGSQL.sql" />   
+					<File Id="ScriptPrerequisitesMSSQL.sql"	Name="ScriptPrerequisitesMSSQL.sql"	Source="InstallFolder\DBScripts\ScriptPrerequisitesMSSQL.sql" /> 
+					<File Id="ScriptPrerequisitesPGSQL.sql"	Name="ScriptPrerequisitesPGSQL.sql"	Source="InstallFolder\DBScripts\ScriptPrerequisitesPGSQL.sql" />   					
+					<File Id="Upgrade0to1100MSSQL.sql"		Name="Upgrade0to1100MSSQL.sql"		Source="InstallFolder\DBScripts\Upgrade0to1100MSSQL.sql" />   
+					<File Id="Upgrade0to1100MySQL.sql"		Name="Upgrade0to1100MySQL.sql"		Source="InstallFolder\DBScripts\Upgrade0to1100MySQL.sql" />   
+					<File Id="Upgrade1100to1200MSSQL.sql"	Name="Upgrade1100to1200MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade1100to1200MSSQL.sql" />   
+					<File Id="Upgrade1100to1200MySQL.sql"	Name="Upgrade1100to1200MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade1100to1200MySQL.sql" />   
+					<File Id="Upgrade1200to1400MSSQL.sql"	Name="Upgrade1200to1400MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade1200to1400MSSQL.sql" />   
+					<File Id="Upgrade1200to1400MySQL.sql"	Name="Upgrade1200to1400MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade1200to1400MySQL.sql" /> 
+					<File Id="Upgrade1400to1410MSSQL.sql"	Name="Upgrade1400to1410MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade1400to1410MSSQL.sql" /> 
+					<File Id="Upgrade1400to1410MySQL.sql"	Name="Upgrade1400to1410MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade1400to1410MySQL.sql" /> 
+					<File Id="Upgrade1410to1500MSSQL.sql"	Name="Upgrade1410to1500MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade1410to1500MSSQL.sql" /> 
+					<File Id="Upgrade1410to1500MySQL.sql"	Name="Upgrade1410to1500MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade1410to1500MySQL.sql" /> 
+					<File Id="Upgrade1500to1600MSSQL.sql"	Name="Upgrade1500to1600MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade1500to1600MSSQL.sql" /> 
+					<File Id="Upgrade1500to1600MySQL.sql"	Name="Upgrade1500to1600MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade1500to1600MySQL.sql" /> 
+					<File Id="Upgrade1600to1700MSSQL.sql"	Name="Upgrade1600to1700MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade1600to1700MSSQL.sql" /> 
+					<File Id="Upgrade1600to1700MySQL.sql"	Name="Upgrade1600to1700MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade1600to1700MySQL.sql" /> 
+					<File Id="Upgrade1700to2000MSSQL.sql"	Name="Upgrade1700to2000MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade1700to2000MSSQL.sql" /> 
+					<File Id="Upgrade1700to2000MySQL.sql"	Name="Upgrade1700to2000MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade1700to2000MySQL.sql" /> 
+					<File Id="Upgrade2000to3000MSSQL.sql"	Name="Upgrade2000to3000MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade2000to3000MSSQL.sql" /> 
+					<File Id="Upgrade2000to3000MySQL.sql"	Name="Upgrade2000to3000MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade2000to3000MySQL.sql" /> 
+					<File Id="Upgrade3000to3001MSSQL.sql"	Name="Upgrade3000to3001MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade3000to3001MSSQL.sql" /> 
+					<File Id="Upgrade3000to3001MySQL.sql"	Name="Upgrade3000to3001MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade3000to3001MySQL.sql" /> 
+					<File Id="Upgrade3001to3100MSSQL.sql"	Name="Upgrade3001to3100MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade3001to3100MSSQL.sql" /> 
+					<File Id="Upgrade3001to3100MySQL.sql"	Name="Upgrade3001to3100MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade3001to3100MySQL.sql" /> 
+					<File Id="Upgrade3100to3200MSSQL.sql"	Name="Upgrade3100to3200MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade3100to3200MSSQL.sql" /> 
+					<File Id="Upgrade3100to3200MySQL.sql"	Name="Upgrade3100to3200MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade3100to3200MySQL.sql" /> 
+					<File Id="Upgrade3200to3300MSSQL.sql"	Name="Upgrade3200to3300MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade3200to3300MSSQL.sql" /> 
+					<File Id="Upgrade3200to3300MySQL.sql"	Name="Upgrade3200to3300MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade3200to3300MySQL.sql" /> 
+					<File Id="Upgrade3300to3301MSSQL.sql"	Name="Upgrade3300to3301MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade3300to3301MSSQL.sql" /> 
+					<File Id="Upgrade3300to3301MySQL.sql"	Name="Upgrade3300to3301MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade3300to3301MySQL.sql" /> 
+					<File Id="Upgrade3301to3400MSSQL.sql"	Name="Upgrade3301to3400MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade3301to3400MSSQL.sql" /> 
+					<File Id="Upgrade3301to3400MySQL.sql"	Name="Upgrade3301to3400MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade3301to3400MySQL.sql" /> 
+					<File Id="Upgrade3400to3401MSSQL.sql"	Name="Upgrade3400to3401MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade3400to3401MSSQL.sql" /> 
+					<File Id="Upgrade3400to3401MySQL.sql"	Name="Upgrade3400to3401MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade3400to3401MySQL.sql" /> 
+					<File Id="Upgrade3401to3402MSSQL.sql"	Name="Upgrade3401to3402MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade3401to3402MSSQL.sql" /> 
+					<File Id="Upgrade3401to3402MySQL.sql"	Name="Upgrade3401to3402MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade3401to3402MySQL.sql" /> 
+					<File Id="Upgrade3402to4000MSSQL.sql"	Name="Upgrade3402to4000MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade3402to4000MSSQL.sql" /> 
+					<File Id="Upgrade3402to4000MySQL.sql"	Name="Upgrade3402to4000MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade3402to4000MySQL.sql" /> 
+					<File Id="Upgrade4000to4100MSSQL.sql"	Name="Upgrade4000to4100MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade4000to4100MSSQL.sql" /> 
+					<File Id="Upgrade4000to4100MySQL.sql"	Name="Upgrade4000to4100MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade4000to4100MySQL.sql" /> 
+					<File Id="Upgrade4100to4200MSSQL.sql"	Name="Upgrade4100to4200MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade4100to4200MSSQL.sql" /> 
+					<File Id="Upgrade4100to4200MySQL.sql"	Name="Upgrade4100to4200MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade4100to4200MySQL.sql" /> 
+					<File Id="Upgrade4200to4300MSSQL.sql"	Name="Upgrade4200to4300MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade4200to4300MSSQL.sql" /> 
+					<File Id="Upgrade4200to4300MySQL.sql"	Name="Upgrade4200to4300MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade4200to4300MySQL.sql" /> 
+					<File Id="Upgrade4300to4301MSSQL.sql"	Name="Upgrade4300to4301MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade4300to4301MSSQL.sql" /> 
+					<File Id="Upgrade4300to4301MySQL.sql"	Name="Upgrade4300to4301MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade4300to4301MySQL.sql" /> 
+					<File Id="Upgrade4301to4400MSSQL.sql"	Name="Upgrade4301to4400MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade4301to4400MSSQL.sql" />
+					<File Id="Upgrade4301to4400MySQL.sql"	Name="Upgrade4301to4400MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade4301to4400MySQL.sql" />
+					<File Id="Upgrade4400to4401MSSQL.sql"	Name="Upgrade4400to4401MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade4400to4401MSSQL.sql" />
+					<File Id="Upgrade4400to4401MySQL.sql"	Name="Upgrade4400to4401MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade4400to4401MySQL.sql" />
+					<File Id="Upgrade4401to4402MSSQL.sql"	Name="Upgrade4401to4402MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade4401to4402MSSQL.sql" />
+					<File Id="Upgrade4401to4402MySQL.sql"	Name="Upgrade4401to4402MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade4401to4402MySQL.sql" />
+					<File Id="Upgrade4402to5000MSSQL.sql"	Name="Upgrade4402to5000MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade4402to5000MSSQL.sql" />
+					<File Id="Upgrade4402to5000MySQL.sql"	Name="Upgrade4402to5000MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade4402to5000MySQL.sql" />
+					<File Id="Upgrade5000to5001MSSQL.sql"	Name="Upgrade5000to5001MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5000to5001MSSQL.sql" />
+					<File Id="Upgrade5000to5001MySQL.sql"	Name="Upgrade5000to5001MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade5000to5001MySQL.sql" />
+					<File Id="Upgrade5001to5002MSSQL.sql"	Name="Upgrade5001to5002MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5001to5002MSSQL.sql" />
+					<File Id="Upgrade5001to5002MSSQLCE.sql"	Name="Upgrade5001to5002MSSQLCE.sql"	Source="InstallFolder\DBScripts\Upgrade5001to5002MSSQLCE.sql" />
+					<File Id="Upgrade5001to5002MySQL.sql"	Name="Upgrade5001to5002MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade5001to5002MySQL.sql" />
+					<File Id="Upgrade5001to5002PGSQL.sql"	Name="Upgrade5001to5002PGSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5001to5002PGSQL.sql" />
+					<File Id="Upgrade5002to5003MSSQL.sql"	Name="Upgrade5002to5003MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5002to5003MSSQL.sql" />
+					<File Id="Upgrade5002to5003MSSQLCE.sql"	Name="Upgrade5002to5003MSSQLCE.sql"	Source="InstallFolder\DBScripts\Upgrade5002to5003MSSQLCE.sql" />
+					<File Id="Upgrade5002to5003MySQL.sql"	Name="Upgrade5002to5003MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade5002to5003MySQL.sql" />
+					<File Id="Upgrade5002to5003PGSQL.sql"	Name="Upgrade5002to5003PGSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5002to5003PGSQL.sql" />
+					<File Id="Upgrade5003to5004MSSQL.sql"	Name="Upgrade5003to5004MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5003to5004MSSQL.sql" />
+					<File Id="Upgrade5003to5004MSSQLCE.sql"	Name="Upgrade5003to5004MSSQLCE.sql"	Source="InstallFolder\DBScripts\Upgrade5003to5004MSSQLCE.sql" />
+					<File Id="Upgrade5003to5004MySQL.sql"	Name="Upgrade5003to5004MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade5003to5004MySQL.sql" />
+					<File Id="Upgrade5003to5004PGSQL.sql"	Name="Upgrade5003to5004PGSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5003to5004PGSQL.sql" />
+					<File Id="Upgrade5004to5005MSSQL.sql"	Name="Upgrade5004to5005MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5004to5005MSSQL.sql" />
+					<File Id="Upgrade5004to5005MSSQLCE.sql"	Name="Upgrade5004to5005MSSQLCE.sql"	Source="InstallFolder\DBScripts\Upgrade5004to5005MSSQLCE.sql" />
+					<File Id="Upgrade5004to5005MySQL.sql"	Name="Upgrade5004to5005MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade5004to5005MySQL.sql" />
+					<File Id="Upgrade5004to5005PGSQL.sql"	Name="Upgrade5004to5005PGSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5004to5005PGSQL.sql" />
+					<File Id="Upgrade5005to5006MSSQL.sql"	Name="Upgrade5005to5006MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5005to5006MSSQL.sql" />
+					<File Id="Upgrade5005to5006MSSQLCE.sql"	Name="Upgrade5005to5006MSSQLCE.sql"	Source="InstallFolder\DBScripts\Upgrade5005to5006MSSQLCE.sql" />
+					<File Id="Upgrade5005to5006MySQL.sql"	Name="Upgrade5005to5006MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade5005to5006MySQL.sql" />
+					<File Id="Upgrade5005to5006PGSQL.sql"	Name="Upgrade5005to5006PGSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5005to5006PGSQL.sql" />
+					<File Id="Upgrade5006to5100MSSQL.sql"	Name="Upgrade5006to5100MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5006to5100MSSQL.sql" />
+					<File Id="Upgrade5006to5100MSSQLCE.sql"	Name="Upgrade5006to5100MSSQLCE.sql"	Source="InstallFolder\DBScripts\Upgrade5006to5100MSSQLCE.sql" />
+					<File Id="Upgrade5006to5100MySQL.sql"	Name="Upgrade5006to5100MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade5006to5100MySQL.sql" />
+					<File Id="Upgrade5006to5100PGSQL.sql"	Name="Upgrade5006to5100PGSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5006to5100PGSQL.sql" />
+					<File Id="Upgrade5100to5110MSSQL.sql"	Name="Upgrade5100to5110MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5100to5110MSSQL.sql" />
+					<File Id="Upgrade5100to5110MSSQLCE.sql"	Name="Upgrade5100to5110MSSQLCE.sql"	Source="InstallFolder\DBScripts\Upgrade5100to5110MSSQLCE.sql" />
+					<File Id="Upgrade5100to5110MySQL.sql"	Name="Upgrade5100to5110MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade5100to5110MySQL.sql" />
+					<File Id="Upgrade5100to5110PGSQL.sql"	Name="Upgrade5100to5110PGSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5100to5110PGSQL.sql" />
+					<File Id="Upgrade5110to5200MSSQL.sql"	Name="Upgrade5110to5200MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5110to5200MSSQL.sql" />
+					<File Id="Upgrade5110to5200MSSQLCE.sql"	Name="Upgrade5110to5200MSSQLCE.sql"	Source="InstallFolder\DBScripts\Upgrade5110to5200MSSQLCE.sql" />
+					<File Id="Upgrade5110to5200MySQL.sql"	Name="Upgrade5110to5200MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade5110to5200MySQL.sql" />
+					<File Id="Upgrade5110to5200PGSQL.sql"	Name="Upgrade5110to5200PGSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5110to5200PGSQL.sql" />
+					<File Id="Upgrade5200to5201MSSQL.sql"	Name="Upgrade5200to5201MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5200to5201MSSQL.sql" />
+					<File Id="Upgrade5200to5201MSSQLCE.sql"	Name="Upgrade5200to5201MSSQLCE.sql"	Source="InstallFolder\DBScripts\Upgrade5200to5201MSSQLCE.sql" />
+					<File Id="Upgrade5200to5201MySQL.sql"	Name="Upgrade5200to5201MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade5200to5201MySQL.sql" />
+					<File Id="Upgrade5200to5201PGSQL.sql"	Name="Upgrade5200to5201PGSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5200to5201PGSQL.sql" />
+					<File Id="Upgrade5201to5300MSSQL.sql"	Name="Upgrade5201to5300MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5201to5300MSSQL.sql" />
+					<File Id="Upgrade5201to5300MSSQLCE.sql"	Name="Upgrade5201to5300MSSQLCE.sql"	Source="InstallFolder\DBScripts\Upgrade5201to5300MSSQLCE.sql" />
+					<File Id="Upgrade5201to5300MySQL.sql"	Name="Upgrade5201to5300MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade5201to5300MySQL.sql" />					
+					<File Id="Upgrade5201to5300PGSQL.sql"	Name="Upgrade5201to5300PGSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5201to5300PGSQL.sql" />					
+					<File Id="Upgrade5300to5310MSSQL.sql"	Name="Upgrade5300to5310MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5300to5310MSSQL.sql" />					
+					<File Id="Upgrade5300to5310MSSQLCE.sql"	Name="Upgrade5300to5310MSSQLCE.sql"	Source="InstallFolder\DBScripts\Upgrade5300to5310MSSQLCE.sql" />					
+					<File Id="Upgrade5300to5310MySQL.sql"	Name="Upgrade5300to5310MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade5300to5310MySQL.sql" />					
+					<File Id="Upgrade5300to5310PGSQL.sql"	Name="Upgrade5300to5310PGSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5300to5310PGSQL.sql" />					
+					<File Id="Upgrade5310to5320MSSQL.sql"	Name="Upgrade5310to5320MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5310to5320MSSQL.sql" />					
+					<File Id="Upgrade5310to5320MSSQLCE.sql"	Name="Upgrade5310to5320MSSQLCE.sql"	Source="InstallFolder\DBScripts\Upgrade5310to5320MSSQLCE.sql" />					
+					<File Id="Upgrade5310to5320MySQL.sql"	Name="Upgrade5310to5320MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade5310to5320MySQL.sql" />					
+					<File Id="Upgrade5310to5320PGSQL.sql"	Name="Upgrade5310to5320PGSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5310to5320PGSQL.sql" />										
+					<File Id="Upgrade5320to5400MSSQL.sql"	Name="Upgrade5320to5400MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5320to5400MSSQL.sql" />										
+					<File Id="Upgrade5320to5400MSSQLCE.sql"	Name="Upgrade5320to5400MSSQLCE.sql"	Source="InstallFolder\DBScripts\Upgrade5320to5400MSSQLCE.sql" />			
+					<File Id="Upgrade5320to5400MySQL.sql"	Name="Upgrade5320to5400MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade5320to5400MySQL.sql" />			
+					<File Id="Upgrade5320to5400PGSQL.sql"	Name="Upgrade5320to5400PGSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5320to5400PGSQL.sql" />		
+					<File Id="Upgrade5400to5500MSSQL.sql"	Name="Upgrade5400to5500MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5400to5500MSSQL.sql" />		
+					<File Id="Upgrade5400to5500MSSQLCE.sql"	Name="Upgrade5400to5500MSSQLCE.sql"	Source="InstallFolder\DBScripts\Upgrade5400to5500MSSQLCE.sql" />		
+					<File Id="Upgrade5400to5500MySQL.sql"	Name="Upgrade5400to5500MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade5400to5500MySQL.sql" />		
+					<File Id="Upgrade5400to5500PGSQL.sql"	Name="Upgrade5400to5500PGSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5400to5500PGSQL.sql" />		
+					<File Id="Upgrade5500to5501MSSQL.sql"	Name="Upgrade5500to5501MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5500to5501MSSQL.sql" />		
+					<File Id="Upgrade5500to5501MSSQLCE.sql"	Name="Upgrade5500to5501MSSQLCE.sql"	Source="InstallFolder\DBScripts\Upgrade5500to5501MSSQLCE.sql" />		
+					<File Id="Upgrade5500to5501MySQL.sql"	Name="Upgrade5500to5501MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade5500to5501MySQL.sql" />		
+					<File Id="Upgrade5500to5501PGSQL.sql"	Name="Upgrade5500to5501PGSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5500to5501PGSQL.sql" />		
+					<File Id="Upgrade5501to5502MSSQL.sql"	Name="Upgrade5501to5502MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5501to5502MSSQL.sql" />		
+					<File Id="Upgrade5501to5502MSSQLCE.sql"	Name="Upgrade5501to5502MSSQLCE.sql"	Source="InstallFolder\DBScripts\Upgrade5501to5502MSSQLCE.sql" />		
+					<File Id="Upgrade5501to5502MySQL.sql"	Name="Upgrade5501to5502MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade5501to5502MySQL.sql" />		
+					<File Id="Upgrade5501to5502PGSQL.sql"	Name="Upgrade5501to5502PGSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5501to5502PGSQL.sql" />		
+					<File Id="Upgrade5502to5600MSSQL.sql"	Name="Upgrade5502to5600MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5502to5600MSSQL.sql" />	
+					<File Id="Upgrade5502to5600MSSQLCE.sql"	Name="Upgrade5502to5600MSSQLCE.sql"	Source="InstallFolder\DBScripts\Upgrade5502to5600MSSQLCE.sql" />	
+					<File Id="Upgrade5502to5600MySQL.sql"	Name="Upgrade5502to5600MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade5502to5600MySQL.sql" />	
+					<File Id="Upgrade5502to5600PGSQL.sql"	Name="Upgrade5502to5600PGSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5502to5600PGSQL.sql" />	
+					<File Id="Upgrade5600to5601MSSQL.sql"	Name="Upgrade5600to5601MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5600to5601MSSQL.sql" />	
+					<File Id="Upgrade5600to5601MSSQLCE.sql"	Name="Upgrade5600to5601MSSQLCE.sql"	Source="InstallFolder\DBScripts\Upgrade5600to5601MSSQLCE.sql" />	
+					<File Id="Upgrade5600to5601MySQL.sql"	Name="Upgrade5600to5601MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade5600to5601MySQL.sql" />	
+					<File Id="Upgrade5600to5601PGSQL.sql"	Name="Upgrade5600to5601PGSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5600to5601PGSQL.sql" />	
+					<File Id="Upgrade5601to5700MSSQL.sql"	Name="Upgrade5601to5700MSSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5601to5700MSSQL.sql" />	
+					<File Id="Upgrade5601to5700MSSQLCE.sql"	Name="Upgrade5601to5700MSSQLCE.sql"	Source="InstallFolder\DBScripts\Upgrade5601to5700MSSQLCE.sql" />	
+					<File Id="Upgrade5601to5700MySQL.sql"	Name="Upgrade5601to5700MySQL.sql"	Source="InstallFolder\DBScripts\Upgrade5601to5700MySQL.sql" />	
+					<File Id="Upgrade5601to5700PGSQL.sql"	Name="Upgrade5601to5700PGSQL.sql"	Source="InstallFolder\DBScripts\Upgrade5601to5700PGSQL.sql" />	
+				</Component>  						
+		</Directory>	
+		
+		<Directory Id="PHPWebAdmin" Name="PHPWebAdmin">
+
+				<Component Id="PHPWebAdminMain" Guid="{b4a3e86d-7dc4-42a7-945d-4cfebd68fa06}" Win64="yes">              
+					<File Id="background.account.externalaccount_save.php"		Name="background_account_externalaccount_save.php"		Source="InstallFolder\PHPWebAdmin\background_account_externalaccount_save.php" />    					
+					<File Id="background_account_save.php"						Name="background_account_save.php"						Source="InstallFolder\PHPWebAdmin\background_account_save.php" /> 					
+					<File Id="background.ajax.spamassassintest.php"				Name="background_ajax_spamassassintest.php"				Source="InstallFolder\PHPWebAdmin\background_ajax_spamassassintest.php" /> 
+					<File Id="background.ajax.virustest.php"					Name="background_ajax_virustest.php"					Source="InstallFolder\PHPWebAdmin\background_ajax_virustest.php" /> 
+					<File Id="background.alias.save.php"						Name="background_alias_save.php"						Source="InstallFolder\PHPWebAdmin\background_alias_save.php" />
+					<File Id="background.blocked.attachment.save.php"			Name="background_blocked_attachment_save.php"			Source="InstallFolder\PHPWebAdmin\background_blocked_attachment_save.php" />
+					<File Id="background.distributionlist.recipient.save.php"	Name="background_distributionlist_recipient_save.php"	Source="InstallFolder\PHPWebAdmin\background_distributionlist_recipient_save.php" />
+					<File Id="background.distributionlist.save.php"				Name="background_distributionlist_save.php"				Source="InstallFolder\PHPWebAdmin\background_distributionlist_save.php" />
+					<File Id="background.dnsblacklist.save.php"					Name="background_dnsblacklist_save.php"					Source="InstallFolder\PHPWebAdmin\background_dnsblacklist_save.php" />
+					<File Id="background.domain.name.save.php"					Name="background_domain_name_save.php"					Source="InstallFolder\PHPWebAdmin\background_domain_name_save.php" />
+					<File Id="background.domain.save.php"						Name="background_domain_save.php"						Source="InstallFolder\PHPWebAdmin\background_domain_save.php" />
+					<File Id="background.incomingrelay.save.php"				Name="background_incomingrelay_save.php"				Source="InstallFolder\PHPWebAdmin\background_incomingrelay_save.php" />
+					<File Id="background.iphome.save.php"						Name="background_iphome_save.php"						Source="InstallFolder\PHPWebAdmin\background_iphome_save.php" />
+					<File Id="background.login.php"								Name="background_login.php"								Source="InstallFolder\PHPWebAdmin\background_login.php" />
+					<File Id="background.route.address.save.php"				Name="background_route_address_save.php"				Source="InstallFolder\PHPWebAdmin\background_route_address_save.php" />
+					<File Id="background.route.save.php"						Name="background_route_save.php"						Source="InstallFolder\PHPWebAdmin\background_route_save.php" />
+					<File Id="background.rule.save.php"							Name="background_rule_save.php"							Source="InstallFolder\PHPWebAdmin\background_rule_save.php" />
+					<File Id="background.securityrange.save.php"				Name="background_securityrange_save.php"				Source="InstallFolder\PHPWebAdmin\background_securityrange_save.php" />
+					<File Id="background.servermessage.save.php"				Name="background_servermessage_save.php"				Source="InstallFolder\PHPWebAdmin\background_servermessage_save.php" />
+					<File Id="background.sslcertificate.save.php"				Name="background_sslcertificate_save.php"				Source="InstallFolder\PHPWebAdmin\background_sslcertificate_save.php" />
+					<File Id="background.surblserver.save.php"					Name="background_surblserver_save.php"					Source="InstallFolder\PHPWebAdmin\background_surblserver_save.php" />
+					<File Id="background.tcpipport.save.php"					Name="background_tcpipport_save.php"					Source="InstallFolder\PHPWebAdmin\background_tcpipport_save.php" />
+					<File Id="background.whitelistaddress.save.php"				Name="background_whitelistaddress_save.php"				Source="InstallFolder\PHPWebAdmin\background_whitelistaddress_save.php" />
+					<File Id="config.dist.php"									Name="config-dist.php"									Source="InstallFolder\PHPWebAdmin\config-dist.php" />
+					<File Id="error.php"										Name="error.php"										Source="InstallFolder\PHPWebAdmin\error.php" />
+					<File Id="hm.account.php"									Name="hm_account.php"									Source="InstallFolder\PHPWebAdmin\hm_account.php" />
+					<File Id="hm.account.externalaccount.php"					Name="hm_account_externalaccount.php"					Source="InstallFolder\PHPWebAdmin\hm_account_externalaccount.php" />
+					<File Id="hm.account.externalaccounts.php"					Name="hm_account_externalaccounts.php"					Source="InstallFolder\PHPWebAdmin\hm_account_externalaccounts.php" />
+					<File Id="hm.accounts.php"									Name="hm_accounts.php"									Source="InstallFolder\PHPWebAdmin\hm_accounts.php" />
+					<File Id="hm.alias.php"										Name="hm_alias.php"										Source="InstallFolder\PHPWebAdmin\hm_alias.php" />
+					<File Id="hm.aliases.php"									Name="hm_aliases.php"									Source="InstallFolder\PHPWebAdmin\hm_aliases.php" />
+					<File Id="hm.backup.php"									Name="hm_backup.php"									Source="InstallFolder\PHPWebAdmin\hm_backup.php" />
+					<File Id="hm.blocked.attachment.php"						Name="hm_blocked_attachment.php"						Source="InstallFolder\PHPWebAdmin\hm_blocked_attachment.php" />
+					<File Id="hm.diagnostics.php"								Name="hm_diagnostics.php"								Source="InstallFolder\PHPWebAdmin\hm_diagnostics.php" />
+					<File Id="hm.distributionlist.php"							Name="hm_distributionlist.php"							Source="InstallFolder\PHPWebAdmin\hm_distributionlist.php" />
+					<File Id="hm.distributionlist_recipient.php"				Name="hm_distributionlist_recipient.php"				Source="InstallFolder\PHPWebAdmin\hm_distributionlist_recipient.php" />
+					<File Id="hm.distributionlist.recipients.php"				Name="hm_distributionlist_recipients.php"				Source="InstallFolder\PHPWebAdmin\hm_distributionlist_recipients.php" />
+					<File Id="hm.distributionlists.php"							Name="hm_distributionlists.php"							Source="InstallFolder\PHPWebAdmin\hm_distributionlists.php" />
+					<File Id="hm.dnsblacklist.php"								Name="hm_dnsblacklist.php"								Source="InstallFolder\PHPWebAdmin\hm_dnsblacklist.php" />
+					<File Id="hm.dnsblacklists.php"								Name="hm_dnsblacklists.php"								Source="InstallFolder\PHPWebAdmin\hm_dnsblacklists.php" />
+					<File Id="hm.domain.php"									Name="hm_domain.php"									Source="InstallFolder\PHPWebAdmin\hm_domain.php" />
+					<File Id="hm.domain.aliasname.php"							Name="hm_domain_aliasname.php"							Source="InstallFolder\PHPWebAdmin\hm_domain_aliasname.php" />
+					<File Id="hm.domains.php"									Name="hm_domains.php"									Source="InstallFolder\PHPWebAdmin\hm_domains.php" />
+					<File Id="hm.frontpage.php"									Name="hm_frontpage.php"									Source="InstallFolder\PHPWebAdmin\hm_frontpage.php" />
+					<File Id="hm.greylisting.php"								Name="hm_greylisting.php"								Source="InstallFolder\PHPWebAdmin\hm_greylisting.php" />
+					<File Id="hm.imap.php"										Name="hm_imap.php"										Source="InstallFolder\PHPWebAdmin\hm_imap.php" />
+					<File Id="hm.incomingrelay.php"								Name="hm_incomingrelay.php"								Source="InstallFolder\PHPWebAdmin\hm_incomingrelay.php" />
+					<File Id="hm.incomingrelays.php"							Name="hm_incomingrelays.php"							Source="InstallFolder\PHPWebAdmin\hm_incomingrelays.php" />
+					<File Id="hm.logging.php"									Name="hm_logging.php"									Source="InstallFolder\PHPWebAdmin\hm_logging.php" />
+					<File Id="hm.login.php"										Name="hm_login.php"										Source="InstallFolder\PHPWebAdmin\hm_login.php" />
+					<File Id="hm.mirror.php"									Name="hm_mirror.php"									Source="InstallFolder\PHPWebAdmin\hm_mirror.php" />
+					<File Id="hm.performance.php"								Name="hm_performance.php"								Source="InstallFolder\PHPWebAdmin\hm_performance.php" />
+					<File Id="hm.permission_denied.php"							Name="hm_permission_denied.php"							Source="InstallFolder\PHPWebAdmin\hm_permission_denied.php" />
+					<File Id="hm.pop3.php"										Name="hm_pop3.php"										Source="InstallFolder\PHPWebAdmin\hm_pop3.php" />
+					<File Id="hm.route.php"										Name="hm_route.php"										Source="InstallFolder\PHPWebAdmin\hm_route.php" />
+					<File Id="hm.route_address.php"								Name="hm_route_address.php"								Source="InstallFolder\PHPWebAdmin\hm_route_address.php" />
+					<File Id="hm.route_addresses.php"							Name="hm_route_addresses.php"							Source="InstallFolder\PHPWebAdmin\hm_route_addresses.php" />
+					<File Id="hm.routes.php"									Name="hm_routes.php"									Source="InstallFolder\PHPWebAdmin\hm_routes.php" />
+					<File Id="hm.rule.php"										Name="hm_rule.php"										Source="InstallFolder\PHPWebAdmin\hm_rule.php" />
+					<File Id="hm.rule_action.php"								Name="hm_rule_action.php"								Source="InstallFolder\PHPWebAdmin\hm_rule_action.php" />
+					<File Id="hm.rule_criteria.php"								Name="hm_rule_criteria.php"								Source="InstallFolder\PHPWebAdmin\hm_rule_criteria.php" />
+					<File Id="hm.rules.php"										Name="hm_rules.php"										Source="InstallFolder\PHPWebAdmin\hm_rules.php" />
+					<File Id="hm.scripts.php"									Name="hm_scripts.php"									Source="InstallFolder\PHPWebAdmin\hm_scripts.php" />
+					<File Id="hm.securityrange.php"								Name="hm_securityrange.php"								Source="InstallFolder\PHPWebAdmin\hm_securityrange.php" />
+					<File Id="hm.securityranges.php"							Name="hm_securityranges.php"							Source="InstallFolder\PHPWebAdmin\hm_securityranges.php" />
+					<File Id="hm.servermessage.php"								Name="hm_servermessage.php"								Source="InstallFolder\PHPWebAdmin\hm_servermessage.php" />
+					<File Id="hm.servermessages.php"							Name="hm_servermessages.php"							Source="InstallFolder\PHPWebAdmin\hm_servermessages.php" />
+					<File Id="hm.smtp.php"										Name="hm_smtp.php"										Source="InstallFolder\PHPWebAdmin\hm_smtp.php" />
+					<File Id="hm.smtp.antispam.php"								Name="hm_smtp_antispam.php"								Source="InstallFolder\PHPWebAdmin\hm_smtp_antispam.php" />
+					<File Id="hm.smtp.antivirus.php"							Name="hm_smtp_antivirus.php"							Source="InstallFolder\PHPWebAdmin\hm_smtp_antivirus.php" />
+					<File Id="hm.sslcertificate.php"							Name="hm_sslcertificate.php"							Source="InstallFolder\PHPWebAdmin\hm_sslcertificate.php" />
+					<File Id="hm.sslcertificates.php"							Name="hm_sslcertificates.php"							Source="InstallFolder\PHPWebAdmin\hm_sslcertificates.php" />
+					<File Id="hm.ssltls.php"									Name="hm_ssltls.php"									Source="InstallFolder\PHPWebAdmin\hm_ssltls.php" />
+					<File Id="hm.status.php"									Name="hm_status.php"									Source="InstallFolder\PHPWebAdmin\hm_status.php" />
+					<File Id="hm.surblserver.php"								Name="hm_surblserver.php"								Source="InstallFolder\PHPWebAdmin\hm_surblserver.php" />
+					<File Id="hm.surblservers.php"								Name="hm_surblservers.php"								Source="InstallFolder\PHPWebAdmin\hm_surblservers.php" />
+					<File Id="hm.tcpipport.php"									Name="hm_tcpipport.php"									Source="InstallFolder\PHPWebAdmin\hm_tcpipport.php" />
+					<File Id="hm.tcpipports.php"								Name="hm_tcpipports.php"								Source="InstallFolder\PHPWebAdmin\hm_tcpipports.php" />
+					<File Id="hm.whitelistaddress.php"							Name="hm_whitelistaddress.php"							Source="InstallFolder\PHPWebAdmin\hm_whitelistaddress.php" />
+					<File Id="hm.whitelistaddresses.php"						Name="hm_whitelistaddresses.php"						Source="InstallFolder\PHPWebAdmin\hm_whitelistaddresses.php" />
+					<File Id="include.treemenu.php"								Name="include_treemenu.php"								Source="InstallFolder\PHPWebAdmin\include_treemenu.php" />
+					<File Id="index.php"										Name="index.php"										Source="InstallFolder\PHPWebAdmin\index.php" />
+					<File Id="initialize.php"									Name="initialize.php"									Source="InstallFolder\PHPWebAdmin\initialize.php" />
+					<File Id="logout.php"										Name="logout.php"										Source="InstallFolder\PHPWebAdmin\logout.php" />
+					<File Id="robots.txt"										Name="robots.txt"										Source="InstallFolder\PHPWebAdmin\robots.txt" />
+					<File Id="style.css"										Name="style.css"										Source="InstallFolder\PHPWebAdmin\style.css" />
+					
+				</Component>  	
+				
+				<Directory Id="images" Name="images">					
+					<Component Id="PHPWebAdminImages" Guid="{77baae12-5640-4343-afb1-518c98c7128b}" Win64="yes">              
+						<File Id="arrow.branch.png"					Name="arrow_branch.png"					Source="InstallFolder\PHPWebAdmin\images\arrow_branch.png" />    
+						<File Id="arrow.in.png"						Name="arrow_in.png"						Source="InstallFolder\PHPWebAdmin\images\arrow_in.png" />    
+						<File Id="arrow.out.png"					Name="arrow_out.png"					Source="InstallFolder\PHPWebAdmin\images\arrow_out.png" />    						
+						<File Id="arrow.switch.png"					Name="arrow_switch.png"					Source="InstallFolder\PHPWebAdmin\images\arrow_switch.png" />  
+						<File Id="bug.delete.png"					Name="bug_delete.png"					Source="InstallFolder\PHPWebAdmin\images\bug_delete.png" />  
+						<File Id="compass.png"						Name="compass.png"						Source="InstallFolder\PHPWebAdmin\images\compass.png" />  
+						<File Id="connect.png"						Name="connect.png"						Source="InstallFolder\PHPWebAdmin\images\connect.png" />  
+						<File Id="construction.png"					Name="construction.png"					Source="InstallFolder\PHPWebAdmin\images\construction.png" />  
+						<File Id="directory.listing.png"			Name="directory_listing.png"			Source="InstallFolder\PHPWebAdmin\images\directory_listing.png" />  
+						<File Id="disk.png"							Name="disk.png"							Source="InstallFolder\PHPWebAdmin\images\disk.png" />  
+						<File Id="dtree.base.gif"					Name="dtree_base.gif"					Source="InstallFolder\PHPWebAdmin\images\dtree_base.gif" />  
+						<File Id="dtree.cd.gif"						Name="dtree_cd.gif"						Source="InstallFolder\PHPWebAdmin\images\dtree_cd.gif" />  
+						<File Id="dtree.empty.gif"					Name="dtree_empty.gif"					Source="InstallFolder\PHPWebAdmin\images\dtree_empty.gif" />  
+						<File Id="dtree.folder.gif"					Name="dtree_folder.gif"					Source="InstallFolder\PHPWebAdmin\images\dtree_folder.gif" />  
+						<File Id="dtree.folderopen.gif"				Name="dtree_folderopen.gif"				Source="InstallFolder\PHPWebAdmin\images\dtree_folderopen.gif" />  
+						<File Id="dtree.join.gif"					Name="dtree_join.gif"					Source="InstallFolder\PHPWebAdmin\images\dtree_join.gif" />  
+						<File Id="dtree.joinbottom.gif"				Name="dtree_joinbottom.gif"				Source="InstallFolder\PHPWebAdmin\images\dtree_joinbottom.gif" />  
+						<File Id="dtree.line.gif"					Name="dtree_line.gif"					Source="InstallFolder\PHPWebAdmin\images\dtree_line.gif" />  
+						<File Id="dtree.minus.gif"					Name="dtree_minus.gif"					Source="InstallFolder\PHPWebAdmin\images\dtree_minus.gif" />  
+						<File Id="dtree.minusbottom.gif"			Name="dtree_minusbottom.gif"			Source="InstallFolder\PHPWebAdmin\images\dtree_minusbottom.gif" />  
+						<File Id="dtree.musicfolder.gif"			Name="dtree_musicfolder.gif"			Source="InstallFolder\PHPWebAdmin\images\dtree_musicfolder.gif" />  
+						<File Id="dtree.nolines.minus.gif"			Name="dtree_nolines_minus.gif"			Source="InstallFolder\PHPWebAdmin\images\dtree_nolines_minus.gif" />  
+						<File Id="dtree.nolines.plus.gif"			Name="dtree_nolines_plus.gif"			Source="InstallFolder\PHPWebAdmin\images\dtree_nolines_plus.gif" />  
+						<File Id="dtree.page.gif"					Name="dtree_page.gif"					Source="InstallFolder\PHPWebAdmin\images\dtree_page.gif" />  
+						<File Id="dtree.plus.gif"					Name="dtree_plus.gif"					Source="InstallFolder\PHPWebAdmin\images\dtree_plus.gif" />  
+						<File Id="dtree.plusbottom.gif"				Name="dtree_plusbottom.gif"				Source="InstallFolder\PHPWebAdmin\images\dtree_plusbottom.gif" />  
+						<File Id="dtree.question.gif"				Name="dtree_question.gif"				Source="InstallFolder\PHPWebAdmin\images\dtree_question.gif" />  
+						<File Id="dtree.trash.gif"					Name="dtree_trash.gif"					Source="InstallFolder\PHPWebAdmin\images\dtree_trash.gif" />  
+						<File Id="email.delete.png"					Name="email_delete.png"					Source="InstallFolder\PHPWebAdmin\images\email_delete.png" />  
+						<File Id="email.link.png"					Name="email_link.png"					Source="InstallFolder\PHPWebAdmin\images\email_link.png" />  
+						<File Id="folder.png"						Name="folder.png"						Source="InstallFolder\PHPWebAdmin\images\folder.png" />  
+						<File Id="heart.png"						Name="heart.png"						Source="InstallFolder\PHPWebAdmin\images\heart.png" />  
+						<File Id="hm_logotype.jpg"					Name="hm_logotype.jpg"					Source="InstallFolder\PHPWebAdmin\images\hm_logotype.jpg" />  
+						<File Id="information.png"					Name="information.png"					Source="InstallFolder\PHPWebAdmin\images\information.png" />  
+						<File Id="multitool.png"					Name="multitool.png"					Source="InstallFolder\PHPWebAdmin\images\multitool.png" />  
+						<File Id="rosette.png"						Name="rosette.png"						Source="InstallFolder\PHPWebAdmin\images\rosette.png" />  
+						<File Id="routing.intersection_right.png"	Name="routing_intersection_right.png"	Source="InstallFolder\PHPWebAdmin\images\routing_intersection_right.png" />  
+						<File Id="server.png"						Name="server.png"						Source="InstallFolder\PHPWebAdmin\images\server.png" />  
+						<File Id="server.connect.png"				Name="server_connect.png"				Source="InstallFolder\PHPWebAdmin\images\server_connect.png" />  
+						<File Id="setting.tools.png"				Name="setting_tools.png"				Source="InstallFolder\PHPWebAdmin\images\setting_tools.png" />  
+						<File Id="source.code.png"					Name="source_code.png"					Source="InstallFolder\PHPWebAdmin\images\source_code.png" />  
+						<File Id="spam.filter.png"					Name="spam_filter.png"					Source="InstallFolder\PHPWebAdmin\images\spam_filter.png" />  
+						<File Id="speedometer.png"					Name="speedometer.png"					Source="InstallFolder\PHPWebAdmin\images\speedometer.png" />  
+						<File Id="star.png"							Name="star.png"							Source="InstallFolder\PHPWebAdmin\images\star.png" />  
+						<File Id="stop.png"							Name="stop.png"							Source="InstallFolder\PHPWebAdmin\images\stop.png" />  
+						<File Id="text.align.justity.png"			Name="text_align_justity.png"			Source="InstallFolder\PHPWebAdmin\images\text_align_justity.png" />  
+						<File Id="time.delete.png"					Name="time_delete.png"					Source="InstallFolder\PHPWebAdmin\images\time_delete.png" />  
+						<File Id="understanding.png"				Name="understanding.png"				Source="InstallFolder\PHPWebAdmin\images\understanding.png" />  
+						<File Id="user.png"							Name="user.png"							Source="InstallFolder\PHPWebAdmin\images\user.png" />  
+						<File Id="world.png"						Name="world.png"						Source="InstallFolder\PHPWebAdmin\images\world.png" />  
+					</Component>
+
+					<Component Id="RemovePHPWebAdminImages" Guid="{c1ac45e3-5ebb-45e6-8e75-7f2a9b84c86f}" Win64="yes">							
+						<RemoveFile Id="arrow.branch.png" On="uninstall" Name="arrow_branch.png"></RemoveFile> 
+						<RemoveFile Id="arrow.in.png" On="uninstall" Name="arrow_in.png"></RemoveFile> 
+					</Component>												
+				</Directory>	
+				
+				<Directory Id="include" Name="include">		
+
+					<Directory Id="tabber" Name="tabber">						
+						<Component Id="TabberFolder" Guid="{379309c9-70d7-47e0-8cee-bc05911eaf50}" Win64="yes">              
+							<File Id="tabber.css"	Name="tabber.css"	Source="InstallFolder\PHPWebAdmin\include\tabber\tabber.css" />    
+							<File Id="tabber.js"	Name="tabber.js"	Source="InstallFolder\PHPWebAdmin\include\tabber\tabber.js" />    
+						</Component>  
+					</Directory>					
+				
+					<Component Id="PHPWebAdminInclude" Guid="{945e9711-1a72-4fea-b756-2cfdc497f296}" Win64="yes">              
+						<File Id="dtree.js"					Name="dtree.js"					Source="InstallFolder\PHPWebAdmin\include\dtree.js" />    
+						<File Id="formcheck.js"				Name="formcheck.js"				Source="InstallFolder\PHPWebAdmin\include\formcheck.js" />    
+						<File Id="functions.js"				Name="functions.js"				Source="InstallFolder\PHPWebAdmin\include\functions.js" />
+						<File Id="initialization_test.php"	Name="initialization_test.php"	Source="InstallFolder\PHPWebAdmin\include\initialization_test.php" />
+						<File Id="rule_strings.php"			Name="rule_strings.php"			Source="InstallFolder\PHPWebAdmin\include\rule_strings.php" />
+					</Component>
+
+					<Component Id="RemovePHPWebAdminInclude" Guid="{a933fe20-253f-4d49-a692-2c9b9d065760}" Win64="yes">							
+						<RemoveFile Id="dtree.js" On="uninstall" Name="dtree.js"></RemoveFile> 
+						<RemoveFile Id="formcheck.js" On="uninstall" Name="formcheck.js"></RemoveFile> 
+					</Component>												
+				</Directory>	
+				
+		
+		</Directory>	
+		
+		<Directory Id="Database" Name="Database">			
+			<Component Id="DatabaseFolder" Guid="{f9f1814e-79ee-4bf5-8892-138854c7e508}" Win64="yes">              
+				<File Id="hMailServer.sdf"		Name="hMailServer.sdf"			Source="InstallFolder\Database\hMailServer.sdf" />    					
+			</Component>  			
+		</Directory>			
+		
+          <Directory Id="INSTALLLOCATION" Name="Bin">
+            <Component Id="ProductComponent" Guid="{dd362f77-20dc-4ed0-af30-220901baa780}" Win64="yes">
+              <File Id="hMailServer" Name="hMailAdmin.exe" Source="InstallFolder\Bin\hMailAdmin.exe" KeyPath="yes">                
+                <Shortcut Advertise="yes" Id="DesktopShortCut" Name="hMailAdmin" Directory="DesktopFolder" WorkingDirectory="INSTALLLOCATION" Description="hMailAdmin" Icon="Icon.exe">
+                  <Icon Id="Icon.exe" SourceFile="InstallFolder\Bin\hMailAdmin.exe" />
+                </Shortcut>
+              </File>
+            </Component>
+			
+            <Component Id="BinFolder" Guid="{25b27020-2e60-4c1d-94c9-5bbcb5cd547d}" Win64="yes">                                          
+                           
+            <File Id="servenza.exe"				Name="7za.exe"        			Source="InstallFolder\Bin\7za.exe" />            
+            <File Id="DBSetup.exe"				Name="DBSetup.exe" 				Source="InstallFolder\Bin\DBSetup.exe" />
+            <File Id="DBSetupQuick.exe"		    Name="DBSetupQuick.exe"         Source="InstallFolder\Bin\DBSetupQuick.exe" />             
+            <File Id="DBUpdater.exe"			Name="DBUpdater.exe"			Source="InstallFolder\Bin\DBUpdater.exe" />
+            <File Id="dh2048.pem"				Name="dh2048.pem"      			Source="InstallFolder\Bin\dh2048.pem" />
+			<File Id="dhMailServer.INI"			Name="hMailServer.INI" 			Source="InstallFolder\Bin\hMailServer.INI" />
+            <File Id="hMailServer.Minidump.exe"	Name="hMailServer.Minidump.exe"	Source="InstallFolder\Bin\hMailServer.Minidump.exe" />
+            <File Id="hMailServer.tlb"			Name="hMailServer.tlb"         	Source="InstallFolder\Bin\hMailServer.tlb" />
+            <File Id="Interop.hMailServer.dll"	Name="Interop.hMailServer.dll" 	Source="InstallFolder\Bin\Interop.hMailServer.dll" />
+			<File Id="libcrypto.1.1.x64.dll"	Name="libcrypto-1_1-x64.dll"	Source="InstallFolder\Bin\libcrypto-1_1-x64.dll" />
+            <File Id="libssl.1.1.x64.dll"		Name="libssl-1_1-x64.dll" 		Source="InstallFolder\Bin\libssl-1_1-x64.dll" />             
+            <File Id="License.rtf"				Name="License.rtf"    			Source="InstallFolder\Bin\License.rtf" />
+			<File Id="msvcp120.dll"				Name="msvcp120.dll"    			Source="InstallFolder\Bin\msvcp120.dll" />
+			<File Id="msvcr120.dll"				Name="msvcr120.dll"    			Source="InstallFolder\Bin\msvcr120.dll" />
+			<File Id="Shared.dll"				Name="Shared.dll"    			Source="InstallFolder\Bin\Shared.dll" />
+			<File Id="tlds.txt"					Name="tlds.txt"    				Source="InstallFolder\Bin\tlds.txt" />
+			<File Id="vccorlib120.dll"			Name="vccorlib120.dll" 			Source="InstallFolder\Bin\vccorlib120.dll" />			  
+			<File Id="libmysql.dll"				Name="libmysql.dll" 			Source="InstallFolder\Bin\libmysql.dll" />	
+			
+			<File Id="hMailServer.exe"			Name="hMailServer.exe"			Source="InstallFolder\Bin\hMailServer.exe" KeyPath="yes" /> 
+				<ServiceInstall	
+					Name="hMailServer" 
+					DisplayName="hMailServer 64-Bit" 
+					Start="auto" 
+					Description="The hMailServer Emailserver for Windows"
+					ErrorControl="normal" 
+					Type="ownProcess" 					
+					Arguments="RunAsService"
+					/> 
+
+					<ServiceControl Id="hMailServer" Name="hMailServer" Start="install" 
+									Stop="both" Remove="uninstall" Wait="yes"  /> 					
+            </Component>			
+          </Directory>
+		  
+			<Directory Id="Data" Name="Data">			
+			<Component Id="DataFolder" Guid="{9ef3577a-dd15-4b1f-a453-5ce25360b0f5}" Win64="yes">              
+				<File Id="init.txt"   		Name="init.txt"		Source="InstallFolder\Data\init.txt" />    					
+			</Component>  			
+		   </Directory>			  
+		  
+		  <Directory Id="Logs" Name="Logs">			
+			<Component Id="LogsFolder" Guid="{d86789ea-6d65-4a58-afcb-dd188282d11f}" Win64="yes">              
+				<File Id="install.log"		Name="install.log"		Source="InstallFolder\Logs\install.log" />    					
+			</Component>  			
+		   </Directory>	
+		  
+		  <Directory Id="Temp" Name="Temp">			
+			<Component Id="TempFolder" Guid="{29120559-9220-4165-b8b0-62c579b48b04}" Win64="yes">              
+				<File Id="empty.txt"		Name="empty.txt"		Source="InstallFolder\Temp\empty.txt" />    					
+			</Component>  			
+		   </Directory>	
+		  
+        </Directory>
+      </Directory>
+	  
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="MyShortCutsDir" Name="hMailServer">
+          <Component Id="ShortCutComponent" Guid="{42a7c561-146a-44f0-a815-c49dd94dbb1e}">
+            <Shortcut Id="ProgShortCut" Name="hMailServer" Description="hMailAdmin Programm Verkmüpfung" Target="[INSTALLLOCATION]hMailAdmin.exe"></Shortcut>
+            <Shortcut Id="UninstallShortCut" Name="Uninstall hMailServer" Target="[System64Folder]msiexec.exe" Arguments="/x [ProductCode]"/>
+            <RemoveFolder Id="RemoveMyShortCuts" On="uninstall"/>
+            <RegistryValue Root="HKCU" Key="Software\hMailServer\hMailServer" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+          </Component>
+        </Directory>
+      </Directory>
+      <Directory Id="DesktopFolder" Name="Desktop" />
+    </Directory>
+
+    <Feature Id="ProductFeature" Title="hMailServer" Level="1">
+      <ComponentRef Id="ProductComponent" />
+      <ComponentRef Id="AddonFolder" />
+      <ComponentRef Id="BinFolder" />      
+	  <ComponentRef Id="EventFolder" />  
+	  <ComponentRef Id="LanguagesFolder" />  	  
+	  <ComponentRef Id="DBScriptsFolderInternal" />  
+	  <ComponentRef Id="DBScriptsFolderMain" />
+	  <ComponentRef Id="DatabaseFolder" />	  	  	  
+	  <ComponentRef Id="DataFolder" />	  
+	  <ComponentRef Id="LogsFolder" />	  
+	  <ComponentRef Id="TempFolder" />	  
+	  <ComponentRef Id="PHPWebAdminMain" />
+	  <ComponentRef Id="PHPWebAdminImages" />	  	  
+	  <ComponentRef Id="PHPWebAdminInclude" />	  
+	  <ComponentRef Id="TabberFolder" />	  	  
+	  <ComponentRef Id="RemovePHPWebAdminImages" />	 		  	  	  
+	  <ComponentRef Id="RemovePHPWebAdminInclude" />	  
+      <ComponentRef Id="ShortCutComponent" />	  
+    </Feature>
+	
+
+	 <CustomAction Id="RegisterDCOMInterface" Directory="INSTALLLOCATION"  
+				   ExeCommand="[INSTALLLOCATION]hMailServer.exe /Register" 
+				   Return="check" Impersonate="no" Execute="deferred"/>        
+	
+	
+	<!--
+		<CustomAction Id='Action1' Script='vbscript' Return='ignore' ExeCommand="C:\Program Files\bin\hMailServer.exe /Register" Execute='commit'>
+			<![CDATA[MsgBox "Action1"]]>
+		</CustomAction>  -->
+	
+    <!-- No downgrade allowed -->
+    <CustomAction Id="PreventDowngrading"
+                  Error="Newer Version exist allready." />
+	
+				  
+    <InstallExecuteSequence>
+	
+      <Custom Action="PreventDowngrading"
+              After="FindRelatedProducts">NEWPRODUCTFOUND</Custom>
+			  
+			<RemoveExistingProducts After="InstallFinalize" />		
+			
+			<Custom Action="RegisterDCOMInterface" Before="InstallServices">NOT Installed</Custom>
+			
+			
+	
+		<!-- <Custom Action='Action1' After='InstallInitialize' /> -->
+			
+    </InstallExecuteSequence>
+
+
+	
+
+	
+    <InstallUISequence>
+      <Custom Action="PreventDowngrading"
+              After="FindRelatedProducts">NEWPRODUCTFOUND</Custom>
+			  
+			  
+    </InstallUISequence>
+
+				  
+	
+    <!-- So kann man eine eigene Lizenzmeldung ausgeben -->
+    <WixVariable Id="WixUILicenseRtf" Overridable="yes" Value='InstallFolder\Bin\License.rtf'/>
+    <WixVariable Id="WelcomeDlgDescription" Overridable='yes' Value="Init"/>
+		
+    <UIRef Id="WixUI_Minimal" />
+    <UIRef Id="WixUI_ErrorProgressText" />
+  </Product>
+</Wix>

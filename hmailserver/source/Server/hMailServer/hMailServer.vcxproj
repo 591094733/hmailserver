@@ -26,28 +26,28 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120_xp</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <UseOfAtl>Static</UseOfAtl>
     <CharacterSet>MultiByte</CharacterSet>
     <CLRSupport>false</CLRSupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120_xp</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <UseOfAtl>Static</UseOfAtl>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
     <CLRSupport>false</CLRSupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120_xp</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <UseOfAtl>Static</UseOfAtl>
     <CharacterSet>MultiByte</CharacterSet>
     <CLRSupport>false</CLRSupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120_xp</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <UseOfAtl>Static</UseOfAtl>
     <CharacterSet>MultiByte</CharacterSet>
     <CLRSupport>false</CLRSupport>
@@ -147,8 +147,8 @@ EXIT 0
     </Link>
     <PostBuildEvent>
       <Message>Performing registration</Message>
-      <Command>xcopy /F /Y $(hMailServerLibs)\openssl-1.0.2p\out32\libeay32.dll $(OutDir)
-xcopy /F /Y $(hMailServerLibs)\openssl-1.0.2p\out32\ssleay32.dll $(OutDir)
+      <Command>xcopy /F /Y $(hMailServerLibs)\openssl-1.0.2p\out32\libeay32.dll $(OutDir) /Y
+xcopy /F /Y $(hMailServerLibs)\openssl-1.0.2p\out32\ssleay32.dll $(OutDir) /Y
 "$(TargetPath)" /Register
 </Command>
     </PostBuildEvent>
@@ -204,8 +204,8 @@ EXIT 0
     </Link>
     <PostBuildEvent>
       <Message>Performing registration</Message>
-      <Command>xcopy "$(hMailServerLibs)\openssl-1.0.2p\out64\libeay32.dll" "$(OutDir)"
-xcopy "$(hMailServerLibs)\openssl-1.0.2p\out64\ssleay32.dll" "$(OutDir)"
+      <Command>xcopy "$(hMailServerLibs)\openssl-1.0.2p\out64\libeay32.dll" "$(OutDir)" /Y
+xcopy "$(hMailServerLibs)\openssl-1.0.2p\out64\ssleay32.dll" "$(OutDir)" /Y
 "$(TargetPath)" /Register
 </Command>
     </PostBuildEvent>
@@ -288,7 +288,7 @@ EXIT 0
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <TreatWarningAsError>true</TreatWarningAsError>
+      <TreatWarningAsError>false</TreatWarningAsError>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalOptions>/Zm200 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Full</Optimization>
@@ -301,6 +301,12 @@ EXIT 0
       <StringPooling>true</StringPooling>
       <MinimalRebuild>true</MinimalRebuild>
       <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <Cpp0xSupport>true</Cpp0xSupport>
+      <RecognizeRestrictKeyword>true</RecognizeRestrictKeyword>
+      <OptimizeForWindowsApplication>true</OptimizeForWindowsApplication>
+      <Parallelization>true</Parallelization>
+      <UseIntelOptimizedHeaders>true</UseIntelOptimizedHeaders>
+      <GenerateAlternateCodePaths>SSE42</GenerateAlternateCodePaths>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -321,8 +327,8 @@ EXIT 0
     </Link>
     <PostBuildEvent>
       <Message>Performing registration</Message>
-      <Command>xcopy "$(hMailServerLibs)\openssl-1.0.2p\out64\libeay32.dll" "$(OutDir)"
-xcopy "$(hMailServerLibs)\openssl-1.0.2p\out64\ssleay32.dll" "$(OutDir)"
+      <Command>xcopy "$(hMailServerLibs)\openssl-1.0.2p\out64\libeay32.dll" "$(OutDir)" /Y
+xcopy "$(hMailServerLibs)\openssl-1.0.2p\out64\ssleay32.dll" "$(OutDir)" /Y
 "$(TargetPath)" /Register
 </Command>
     </PostBuildEvent>
